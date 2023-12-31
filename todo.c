@@ -19,7 +19,8 @@ int main(int argc, char* argv[]){
 	// after this, see if there is message present and write to file
 	// if there is no -f, read config, write to default file name
 	Fileinfo f_info;
-	
+	char msg[512] = "";
+
 	
 	// print_cmdargs(argc, argv);	
 
@@ -78,8 +79,19 @@ int main(int argc, char* argv[]){
 	// we could assume if there is f and is long enough there will be message
 	
 	if (msg_loc > 0){
+		if (argc > 2){
+			// collect the string
+			for (int i=1; i<argc; i++){
+				strcat(msg, argv[i]);
+				strcat(msg," ");
+			}
+		}
+		else {
+			strcpy(msg,argv[msg_loc]);
+	
+		}
 
-		fprintf(fptr, "%s\n", argv[msg_loc]);
+		fprintf(fptr, "%s\n", msg);
 	}
 	if (fptr != NULL){
 		fclose(fptr);
